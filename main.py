@@ -32,8 +32,10 @@ class StockTimeSeries:
             "={resp.status_code}"
         )
 
-obj = StockTimeSeries()
+sts = StockTimeSeries()
 
-data = obj.intraday_series()
+function='TIME_SERIES_INTRADAY';symbol='IBM';interval='5min'
+
+data = sts.intraday_series(function, symbol, interval)
 
 print(data)
