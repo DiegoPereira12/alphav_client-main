@@ -1,41 +1,34 @@
-import requests
+from os import system
+import sys
 
-import settings
+def main():  
 
-class APICallError(Exception):
-    pass
+     while True:
 
-class StockTimeSeries:
+          print('Consumir dados API')
+          print('Selecione uma opção no menu: ')
+          print('1 - Intraday series')
+          print('2 - Daily series')
 
-    def __init__(self):
-        self.base_url = settings.BASE_URL
-        self.api_key = settings.APIKEY
+          opcao = int(input('Digite um opção => '))
 
-    def _build_url(self, path):
-        return f"{self.base_url}?{path}&apikey={self.api_key}"
+          if opcao == 1:
+               print('=' * 60)
+               print('Seus dados Intraday Series estão sendo gerados ....')
+               import intraday_series
+               print('=' * 60)
+               break
+               
+               
+          elif opcao == 2:
+             
+               print('daily_series')
+               print('=' * 60) 
+          
+          else:
+               print('Entrada invalida')
+     
+          #main()
 
-    def intraday_series(self, function, symbol, interval, **kwargs):
-
-        path = f"function={function}&symbol={symbol}&interval={interval}"
-        options = [f"{item[0]}={item[1]}" for item in kwargs.items()]
-        path = f"{path}&{'&'.join(options)}" if options else path
-
-        url = self._build_url(path)
-
-        resp = requests.get(url)
-
-        if resp.status_code == 200:
-            return resp.json()
-            
-        raise APICallError(
-            f"Não foi possivel consumir o serviço: STATUS_CODE"
-            "={resp.status_code}"
-        )
-
-sts = StockTimeSeries()
-
-function='TIME_SERIES_INTRADAY';symbol='IBM';interval='5min'
-
-data = sts.intraday_series(function, symbol, interval)
-
-print(data)
+if __name__ == '__main__':
+     main()
