@@ -14,7 +14,7 @@ class DayliSeries:
     def _build_url(self, path):
         return f"{self.base_url}?{path}&apikey={self.api_key}"
 
-    def intraday_series(self, function, symbol, outputsize, **kwargs):
+    def dayli_series(self, function, symbol, outputsize, **kwargs):
 
         path = f"function={function}&symbol={symbol}&outputsize={outputsize}"
         options = [f"{item[0]}={item[1]}" for item in kwargs.items()]
@@ -36,6 +36,6 @@ sts = DayliSeries()
 
 function='TIME_SERIES_DAILY';symbol='IBM';outputsize='compact'
 
-data = sts.intraday_series(function, symbol, outputsize)
+data = sts.dayli_series(function, symbol, outputsize)
 
 print(data)

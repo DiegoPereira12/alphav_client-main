@@ -5,7 +5,7 @@ import settings
 class APICallError(Exception):
     pass
 
-class DayliAdjustedSeries:
+class WeeklyAdjustedSeries:
 
     def __init__(self):
         self.base_url = settings.BASE_URL
@@ -14,9 +14,9 @@ class DayliAdjustedSeries:
     def _build_url(self, path):
         return f"{self.base_url}?{path}&apikey={self.api_key}"
 
-    def dayli_adjusted_series(self, function, symbol, outputsize, **kwargs):
+    def weekly_adjusted_series(self, function, symbol, datatype, **kwargs):
 
-        path = f"function={function}&symbol={symbol}&outputsize={outputsize}"
+        path = f"function={function}&symbol={symbol}&datatype={datatype}"
         options = [f"{item[0]}={item[1]}" for item in kwargs.items()]
         path = f"{path}&{'&'.join(options)}" if options else path
 
@@ -32,10 +32,10 @@ class DayliAdjustedSeries:
             "={resp.status_code}"
         )
 
-sts = DayliAdjustedSeries()
+sts = WeeklyAdjustedSeries()
 
-function='TIME_SERIES_DAILY_ADJUSTED';symbol='IBM';outputsize='full'
+function='TIME_SERIES_WEEKLY_ADJUSTED';symbol='IBM';datatype='json'
 
-data = sts.dayli_adjusted_series(function, symbol, outputsize)
+data = sts.weekly_adjusted_series(function, symbol, datatype)
 
 print(data)

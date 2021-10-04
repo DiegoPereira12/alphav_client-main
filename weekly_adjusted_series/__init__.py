@@ -1,0 +1,1 @@
+from .weekly_adjusted_series import WeeklyAdjustedSeries
